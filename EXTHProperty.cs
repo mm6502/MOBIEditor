@@ -34,7 +34,7 @@ namespace MOBIeditor {
 		private void textBoxValue_Leave(object sender, EventArgs e) {
 			switch (Display) {
 				case ValueDisplayType.String:
-					EXTHRecord.Data = ASCIIEncoding.ASCII.GetBytes(textBoxValue.Text);
+					EXTHRecord.Data = Encoding.UTF8.GetBytes(textBoxValue.Text);
 					textBoxValue.BackColor = Color.White;
 					break;
 
@@ -73,7 +73,7 @@ namespace MOBIeditor {
 			// not if the first byte is 0 - there'd be nothing to display, anyway
 			if (EXTHRecord.Data[0] == 0) return;
 
-			textBoxValue.Text = ASCIIEncoding.ASCII.GetString(EXTHRecord.Data);
+			textBoxValue.Text = Encoding.UTF8.GetString(EXTHRecord.Data);
 			Display = ValueDisplayType.String;
 			//textBoxValue.Width = Width - 131;
 
@@ -90,7 +90,7 @@ namespace MOBIeditor {
 			// not if the first byte is 0 - there'd be nothing to display, anyway
 			if (EXTHRecord.Data[0] == 0) return;
 
-			textBoxValue.Text = ASCIIEncoding.ASCII.GetString(EXTHRecord.Data);
+			textBoxValue.Text = Encoding.UTF8.GetString(EXTHRecord.Data);
 
 			Display = ValueDisplayType.String;
 

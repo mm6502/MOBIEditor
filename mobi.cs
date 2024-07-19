@@ -75,7 +75,7 @@ namespace MOBIeditor {
 				}
 				public string TypeName { get { return RecordTypes.ContainsKey(Type) ? RecordTypes[Type] : "Unknown [" + Type + "]"; } }
 				public string GetDataAsString() {
-					return System.Text.ASCIIEncoding.ASCII.GetString(Data);
+					return System.Text.Encoding.UTF8.GetString(Data);
 				}
 			}
 		}
@@ -99,14 +99,14 @@ namespace MOBIeditor {
 
 				// create MOBI header
 				MobiHeader = new MobiHeaderFormat();
-				if (System.Text.ASCIIEncoding.ASCII.GetString(bin.ReadBytes(4)) != "MOBI") throw new Exception("MOBI header not found.");
+				if (System.Text.Encoding.ASCII.GetString(bin.ReadBytes(4)) != "MOBI") throw new Exception("MOBI header not found.");
 				int headerLength = bin.ReadInt32_BigEndian();
 				MobiHeader.Data = bin.ReadBytes(headerLength - 8);
 
 				// create EXTH header (if one exists)
 				if (MobiHeader.HasEXTH) {
 					ExthHeader = new ExthHeaderFormat();
-					if (System.Text.ASCIIEncoding.ASCII.GetString(bin.ReadBytes(4)) != "EXTH") throw new Exception("EXTH header not found.");
+					if (System.Text.Encoding.ASCII.GetString(bin.ReadBytes(4)) != "EXTH") throw new Exception("EXTH header not found.");
 					headerLength = bin.ReadInt32_BigEndian();
 					int numRecords = bin.ReadInt32_BigEndian();
 					ExthHeader.Records = new List<ExthHeaderFormat.ExthHeaderRecordFormat>();
@@ -139,13 +139,13 @@ namespace MOBIeditor {
 			bin.WriteInt16_BigEndian(PalmDocHeader.Unknown);
 
 			// create MOBI header
-			bin.Write(ASCIIEncoding.ASCII.GetBytes("MOBI"));
+			bin.Write(Encoding.ASCII.GetBytes("MOBI"));
 			bin.WriteInt32_BigEndian(MobiHeader.Data.Length + 8);
 			bin.Write(MobiHeader.Data);
 
 			// create EXTH header (maybe)
 			if (MobiHeader.HasEXTH) {
-				bin.Write(ASCIIEncoding.ASCII.GetBytes("EXTH"));
+				bin.Write(Encoding.ASCII.GetBytes("EXTH"));
 				bin.WriteInt32_BigEndian(ExthHeader.Length);
 				bin.WriteInt32_BigEndian(ExthHeader.Records.Count);
 				foreach (ExthHeaderFormat.ExthHeaderRecordFormat rec in ExthHeader.Records) {

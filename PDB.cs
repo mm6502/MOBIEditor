@@ -32,7 +32,7 @@ namespace MOBIeditor {
 			if (!pdbFile.Exists) throw new Exception("File not existing!");
 
 			using (BinaryReader2 bin = new BinaryReader2(pdbFile.OpenRead())) {
-				DBName = System.Text.ASCIIEncoding.ASCII.GetString(bin.ReadBytes(32));
+				DBName = System.Text.Encoding.ASCII.GetString(bin.ReadBytes(32));
 				Attributes = bin.ReadInt16_BigEndian();
 				Version = bin.ReadInt16_BigEndian();
 
@@ -44,8 +44,8 @@ namespace MOBIeditor {
 				AppInfoOffset = bin.ReadInt32_BigEndian(); // these two items are, I think, offsets into the data stream // we might want to save this data in a byte[] as well
 				SortInfoOffset = bin.ReadInt32_BigEndian();
 
-				Type = System.Text.ASCIIEncoding.ASCII.GetString(bin.ReadBytes(4));
-				Creator = System.Text.ASCIIEncoding.ASCII.GetString(bin.ReadBytes(4));
+				Type = System.Text.Encoding.ASCII.GetString(bin.ReadBytes(4));
+				Creator = System.Text.Encoding.ASCII.GetString(bin.ReadBytes(4));
 
 				UniqueIdSeed = bin.ReadInt32_BigEndian();
 				NextRecordListId = bin.ReadInt32_BigEndian();
@@ -86,8 +86,8 @@ namespace MOBIeditor {
 		}
 
 		public void Save(FileInfo pdbFile) {
-			using (BinaryWriter2 bin = new BinaryWriter2(pdbFile.OpenWrite(), Encoding.ASCII)) {
-				bin.Write(ASCIIEncoding.ASCII.GetBytes(DBName), 0, 32);
+			using (BinaryWriter2 bin = new BinaryWriter2(pdbFile.OpenWrite(), Encoding.UTF8)) {
+				bin.Write(Encoding.ASCII.GetBytes(DBName), 0, 32);
 				bin.WriteInt16_BigEndian(Attributes);
 				bin.WriteInt16_BigEndian(Version);
 				
@@ -99,8 +99,8 @@ namespace MOBIeditor {
 				bin.WriteInt32_BigEndian(AppInfoOffset); // TODO: if these offsets are not 0 we need to do some thinking
 				bin.WriteInt32_BigEndian(SortInfoOffset);
 
-				bin.Write(ASCIIEncoding.ASCII.GetBytes(Type), 0, 4);
-				bin.Write(ASCIIEncoding.ASCII.GetBytes(Creator), 0, 4);
+				bin.Write(Encoding.ASCII.GetBytes(Type), 0, 4);
+				bin.Write(Encoding.ASCII.GetBytes(Creator), 0, 4);
 
 				bin.WriteInt32_BigEndian(UniqueIdSeed);
 				bin.WriteInt32_BigEndian(NextRecordListId);
