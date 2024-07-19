@@ -1,17 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <Version>1.2.0</Version>
+    <Description>Edit meta data in .mobi files.</Description>
+    <Title>MOBI Editor</Title>
+    <RepositoryUrl>https://github.com/mm6502/MOBIEditor</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <ApplicationIcon>Lemur.ico</ApplicationIcon>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <SccProjectName>MOBIeditor</SccProjectName>
-    <SccLocalPath>1~d92ae8e8-f767-4aa3-ada9-e8bd418be7e6</SccLocalPath>
-    <SccAuxPath>http://sourcegear.urbanplanet.com/VaultService</SccAuxPath>
-    <SccProvider>SourceGear Vault Visual Studio 2005 Client:{1EA47954-8515-402d-82D9-B5C332120A8D}</SccProvider>
-    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-    <ApplicationIcon>Lemur.ico</ApplicationIcon>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    <NoWarn>1701;1702;CA1416</NoWarn>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="About Box" />
   </ItemGroup>
@@ -22,15 +33,5 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Lemur.ico" />
-    <Content Include="lib\About Box.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="pub\About Box.dll" />
   </ItemGroup>
 </Project>
